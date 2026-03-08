@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { Github } from "lucide-react";
 
-export default function AdminAuthPage() {
+export default function AuthContent() {
   const { data: session } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -17,23 +17,16 @@ export default function AdminAuthPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-6">
-      {/* Grid background */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: `
-            linear-gradient(rgba(200,240,76,0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(200,240,76,0.03) 1px, transparent 1px)
-          `,
+          backgroundImage: `linear-gradient(rgba(200,240,76,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(200,240,76,0.03) 1px, transparent 1px)`,
           backgroundSize: "64px 64px",
         }}
       />
-
       <div className="relative w-full max-w-sm">
         <div className="mb-10">
-          <span className="font-mono text-xs text-accent tracking-widest uppercase">
-            Admin Access
-          </span>
+          <span className="font-mono text-xs text-accent tracking-widest uppercase">Admin Access</span>
           <h1 className="font-display text-5xl mt-3 leading-tight">
             Sign in to
             <span className="italic text-text-secondary"> Panel</span>
@@ -63,9 +56,7 @@ export default function AdminAuthPage() {
           </span>
         </button>
 
-        <p className="font-mono text-xs text-muted text-center mt-6 tracking-wider">
-          SECURED BY OAUTH 2.0
-        </p>
+        <p className="font-mono text-xs text-muted text-center mt-6 tracking-wider">SECURED BY OAUTH 2.0</p>
       </div>
     </div>
   );
