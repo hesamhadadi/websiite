@@ -11,9 +11,9 @@ const SettingsModel = models.Settings || mongoose.model("Settings", SettingsSche
 export async function GET() {
   try {
     await dbConnect();
-    const docs = await SettingsModel.find({}).lean();
+    const docs = await SettingsModel.find({}).lean() as unknown as { key: string; value: string }[];
     const result: Record<string, string> = {};
-    for (const doc of docs as { key: string; value: string }[]) result[doc.key] = doc.value;
+    for (const doc of docs) result[doc.key] = doc.value;
     return NextResponse.json(result);
   } catch {
     return NextResponse.json({}, { status: 500 });
