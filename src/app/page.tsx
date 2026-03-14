@@ -4,15 +4,16 @@ import Image from "next/image";
 import dbConnect from "@/lib/db";
 import mongoose, { Schema, models } from "mongoose";
 
-const SettingsSchema = new Schema({ key: String, value: String });
-const SettingsModel = models.Settings || mongoose.model("Settings", SettingsSchema);
+interface ISetting { key: string; value: string; }
+const SettingsSchema = new Schema<ISetting>({ key: String, value: String });
+const SettingsModel = models.Settings || mongoose.model<ISetting>("Settings", SettingsSchema);
 
 async function getSettings(): Promise<Record<string, string>> {
   try {
     await dbConnect();
-    const docs = await SettingsModel.find({}).lean() as { key: string; value: string }[];
+    const docs = await SettingsModel.find({}).lean<ISetting[]>();
     const result: Record<string, string> = {};
-    for (const doc of docs) result[doc.key] = doc.value;
+    for (const doc of docs) { if (doc.key) result[doc.key] = doc.value ?? ""; }
     return result;
   } catch {
     return {};
