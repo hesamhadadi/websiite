@@ -6,8 +6,7 @@ export interface Project {
   tags: string[];
   githubUrl?: string;
   liveUrl?: string;
-  image?: string;       // primary image (kept for backwards compat)
-  images?: string[];    // all uploaded images
+  image?: string;
   featured: boolean;
   year: number;
   createdAt?: Date;

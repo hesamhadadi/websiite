@@ -13,6 +13,7 @@ A dark, minimal personal portfolio with blog, project showcase, and contact form
 
 ---
 
+<<<<<<< HEAD
 ## 1. Local Setup
 
 ### Clone & Install
@@ -157,6 +158,8 @@ git push -u origin main
 After that, every `git push` automatically redeploys on Vercel.
 
 ---
+=======
+>>>>>>> 4609c1571c2376f1b2a65d06aa1f30528a69c6cd
 
 ## Project Structure
 

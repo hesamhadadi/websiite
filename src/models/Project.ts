@@ -9,8 +9,7 @@ const ProjectSchema = new Schema<Project>(
     tags: [{ type: String }],
     githubUrl: { type: String },
     liveUrl: { type: String },
-    image: { type: String },       // primary image
-    images: [{ type: String }],    // all images
+    image: { type: String },
     featured: { type: Boolean, default: false },
     year: { type: Number, required: true },
   },
