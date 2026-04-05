@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
 import { absoluteUrl, DEFAULT_OG_IMAGE } from "@/lib/site";
+import { getProjectCoverImage, getProjectGallery } from "@/lib/project-media";
 
 interface Props { params: { slug: string } }
 
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: project.description,
       type: "article",
       url: absoluteUrl(`/portfolio/${params.slug}`),
-      images: [project.image || absoluteUrl(DEFAULT_OG_IMAGE)],
+      images: [getProjectCoverImage(project) || absoluteUrl(DEFAULT_OG_IMAGE)],
     },
   };
 }
@@ -41,11 +42,8 @@ export default async function ProjectPage({ params }: Props) {
   const project = await getProject(params.slug);
   if (!project) notFound();
 
-  const allImages = project.images && project.images.length > 0
-    ? project.images
-    : project.image ? [project.image] : [];
-
-  const primaryImage = project.image || allImages[0];
+  const allImages = getProjectGallery(project);
+  const primaryImage = getProjectCoverImage(project) || allImages[0];
 
   return (
     <div className="min-h-screen bg-background">

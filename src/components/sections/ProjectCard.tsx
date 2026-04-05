@@ -5,9 +5,10 @@ import type { Project } from "@/types";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { getProjectCoverImage } from "@/lib/project-media";
 
 export function ProjectCard({ project }: { project: Project }) {
-  const coverImage = project.image || (project.images && project.images[0]);
+  const coverImage = getProjectCoverImage(project);
   const slug = project._id;
 
   return (
