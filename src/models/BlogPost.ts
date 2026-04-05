@@ -11,9 +11,12 @@ const BlogPostSchema = new Schema<BlogPost>(
     tags: [{ type: String }],
     published: { type: Boolean, default: false },
     readTime: { type: Number },
+    views: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
+
+BlogPostSchema.index({ published: 1, createdAt: -1 });
 
 BlogPostSchema.pre("save", function (next) {
   if (this.content) {

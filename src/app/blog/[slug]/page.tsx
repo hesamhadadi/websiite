@@ -8,6 +8,8 @@ import type { BlogPost } from "@/types";
 import { formatDate } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { absoluteUrl, DEFAULT_OG_IMAGE } from "@/lib/site";
+import { BlogViewTracker } from "@/components/BlogViewTracker";
 
 interface Props {
   params: { slug: string };
@@ -29,6 +31,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.title,
     description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: "article",
+      url: absoluteUrl(`/blog/${post.slug}`),
+      images: [absoluteUrl(DEFAULT_OG_IMAGE)],
+    },
   };
 }
 
@@ -38,6 +47,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <div className="min-h-screen pt-28 px-6 pb-24">
+      <BlogViewTracker slug={post.slug} />
       <div className="mx-auto max-w-2xl">
         <Link
           href="/blog"
@@ -54,6 +64,10 @@ export default async function BlogPostPage({ params }: Props) {
             <span className="text-border">·</span>
             <span className="font-mono text-xs text-text-secondary">
               {post.readTime} min read
+            </span>
+            <span className="text-border">·</span>
+            <span className="font-mono text-xs text-text-secondary">
+              {post.views || 0} views
             </span>
           </div>
           <h1 className="font-display text-4xl md:text-6xl leading-tight mb-6">
@@ -74,6 +88,20 @@ export default async function BlogPostPage({ params }: Props) {
         </header>
 
         <div className="border-t border-border pt-10">
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BlogPosting",
+                headline: post.title,
+                description: post.excerpt,
+                datePublished: post.createdAt,
+                dateModified: post.updatedAt || post.createdAt,
+                url: absoluteUrl(`/blog/${post.slug}`),
+              }),
+            }}
+          />
           <div className="prose prose-invert prose-sm max-w-none
             prose-headings:font-display prose-headings:font-normal prose-headings:text-text-primary
             prose-p:text-text-secondary prose-p:font-light prose-p:leading-relaxed

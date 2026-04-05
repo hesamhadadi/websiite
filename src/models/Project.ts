@@ -17,5 +17,8 @@ const ProjectSchema = new Schema<Project>(
   { timestamps: true }
 );
 
+ProjectSchema.index({ featured: -1, year: -1 });
+ProjectSchema.index({ tags: 1 });
+
 export const ProjectModel =
   models.Project || mongoose.model<Project>("Project", ProjectSchema);

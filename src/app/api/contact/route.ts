@@ -2,10 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import { ContactModel } from "@/models/Contact";
 import nodemailer from "nodemailer";
+import { enforceRateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
   try {
     const { name, email, subject, message } = await req.json();
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "anonymous";
+    const limiter = enforceRateLimit(`contact:${ip}`, 5, 60 * 60 * 1000);
+
+    if (!limiter.allowed) {
+      return NextResponse.json(
+        { error: "Too many messages. Please wait a bit and try again." },
+        { status: 429, headers: { "Retry-After": String(Math.ceil((limiter.retryAfterMs ?? 0) / 1000)) } }
+      );
+    }
 
     if (!name || !email || !subject || !message) {
       return NextResponse.json({ error: "All fields are required." }, { status: 400 });

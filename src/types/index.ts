@@ -22,6 +22,7 @@ export interface BlogPost {
   tags: string[];
   published: boolean;
   readTime?: number;
+  views?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -34,4 +35,15 @@ export interface ContactMessage {
   message: string;
   read: boolean;
   createdAt?: Date;
+}
+
+export interface Testimonial {
+  _id?: string;
+  name: string;
+  role: string;
+  company?: string;
+  quote: string;
+  featured: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

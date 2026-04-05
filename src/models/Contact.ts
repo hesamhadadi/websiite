@@ -12,5 +12,8 @@ const ContactSchema = new Schema<ContactMessage>(
   { timestamps: true }
 );
 
+ContactSchema.index({ createdAt: -1 });
+ContactSchema.index({ email: 1, createdAt: -1 });
+
 export const ContactModel =
   models.Contact || mongoose.model<ContactMessage>("Contact", ContactSchema);

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const links = [
   { href: "/", label: "Home" },
@@ -49,7 +50,8 @@ export function Navbar() {
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-4">
+          <ul className="flex items-center gap-8">
           {links.map(({ href, label }) => (
             <li key={href}>
               <Link
@@ -65,16 +67,21 @@ export function Navbar() {
               </Link>
             </li>
           ))}
-        </ul>
+          </ul>
+          <ThemeToggle />
+        </div>
 
         {/* Mobile toggle */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden text-text-secondary hover:text-text-primary transition-colors"
-          aria-label="Toggle menu"
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle className="px-2.5" />
+          <button
+            onClick={() => setOpen(!open)}
+            className="text-text-secondary hover:text-text-primary transition-colors"
+            aria-label="Toggle menu"
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}

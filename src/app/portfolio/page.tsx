@@ -1,8 +1,8 @@
 import { Metadata } from "next";
-import { ProjectCard } from "@/components/sections/ProjectCard";
 import dbConnect from "@/lib/db";
 import { ProjectModel } from "@/models/Project";
 import type { Project } from "@/types";
+import { PortfolioFilters } from "@/components/PortfolioFilters";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -41,11 +41,7 @@ export default async function PortfolioPage() {
             <p className="font-mono text-sm text-text-secondary">No projects yet.</p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 gap-px bg-border">
-            {projects.map((project) => (
-              <ProjectCard key={project._id} project={project} />
-            ))}
-          </div>
+          <PortfolioFilters projects={projects} />
         )}
       </div>
     </div>

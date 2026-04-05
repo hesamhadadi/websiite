@@ -6,6 +6,11 @@ import Image from "next/image";
 
 export default function AdminSettings() {
   const [avatarUrl, setAvatarUrl] = useState("");
+  const [resumeUrl, setResumeUrl] = useState("");
+  const [siteUrl, setSiteUrl] = useState("");
+  const [ogImage, setOgImage] = useState("");
+  const [availabilityLabel, setAvailabilityLabel] = useState("");
+  const [availabilityMode, setAvailabilityMode] = useState("open");
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -15,7 +20,14 @@ export default function AdminSettings() {
   useEffect(() => {
     fetch("/api/settings")
       .then((r) => r.json())
-      .then((data) => { if (data.avatar_url) setAvatarUrl(data.avatar_url); });
+      .then((data) => {
+        if (data.avatar_url) setAvatarUrl(data.avatar_url);
+        if (data.resume_url) setResumeUrl(data.resume_url);
+        if (data.site_url) setSiteUrl(data.site_url);
+        if (data.og_image) setOgImage(data.og_image);
+        if (data.availability_label) setAvailabilityLabel(data.availability_label);
+        if (data.availability_mode) setAvailabilityMode(data.availability_mode);
+      });
   }, []);
 
   const handleFileUpload = async (files: FileList | null) => {
@@ -42,7 +54,14 @@ export default function AdminSettings() {
     await fetch("/api/settings", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ avatar_url: avatarUrl }),
+      body: JSON.stringify({
+        avatar_url: avatarUrl,
+        resume_url: resumeUrl,
+        site_url: siteUrl,
+        og_image: ogImage,
+        availability_label: availabilityLabel,
+        availability_mode: availabilityMode,
+      }),
     });
     setSaving(false);
     setSaved(true);
@@ -108,6 +127,64 @@ export default function AdminSettings() {
           />
 
           {error && <p className="font-mono text-xs text-red-400">{error}</p>}
+        </div>
+
+        <div className="border border-border p-6 space-y-4">
+          <div>
+            <span className="font-mono text-xs text-text-secondary tracking-widest uppercase">SEO & Public Assets</span>
+          </div>
+
+          <input
+            className={inputCls}
+            placeholder="Resume URL (PDF or external link)"
+            value={resumeUrl}
+            onChange={(e) => setResumeUrl(e.target.value)}
+          />
+          <input
+            className={inputCls}
+            placeholder="Site URL (https://...)"
+            value={siteUrl}
+            onChange={(e) => setSiteUrl(e.target.value)}
+          />
+          <input
+            className={inputCls}
+            placeholder="Open Graph image URL"
+            value={ogImage}
+            onChange={(e) => setOgImage(e.target.value)}
+          />
+        </div>
+
+        <div className="border border-border p-6 space-y-4">
+          <div>
+            <span className="font-mono text-xs text-text-secondary tracking-widest uppercase">Availability Status</span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { label: "Open", value: "open" },
+              { label: "Limited", value: "limited" },
+            ].map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => setAvailabilityMode(option.value)}
+                className={`border px-4 py-3 font-mono text-xs uppercase tracking-widest transition-colors ${
+                  availabilityMode === option.value
+                    ? "border-accent bg-accent text-background"
+                    : "border-border text-text-secondary hover:border-accent hover:text-accent"
+                }`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+
+          <input
+            className={inputCls}
+            placeholder='Status label, e.g. "Open to opportunities"'
+            value={availabilityLabel}
+            onChange={(e) => setAvailabilityLabel(e.target.value)}
+          />
         </div>
 
         {/* Save */}

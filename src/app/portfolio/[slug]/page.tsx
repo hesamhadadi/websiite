@@ -6,6 +6,7 @@ import type { Project } from "@/types";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
+import { absoluteUrl, DEFAULT_OG_IMAGE } from "@/lib/site";
 
 interface Props { params: { slug: string } }
 
@@ -21,7 +22,17 @@ async function getProject(id: string): Promise<Project | null> {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = await getProject(params.slug);
   if (!project) return { title: "Not Found" };
-  return { title: project.title, description: project.description };
+  return {
+    title: project.title,
+    description: project.description,
+    openGraph: {
+      title: project.title,
+      description: project.description,
+      type: "article",
+      url: absoluteUrl(`/portfolio/${params.slug}`),
+      images: [project.image || absoluteUrl(DEFAULT_OG_IMAGE)],
+    },
+  };
 }
 
 export const revalidate = 60;
