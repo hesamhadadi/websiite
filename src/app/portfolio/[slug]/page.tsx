@@ -4,10 +4,10 @@ import dbConnect from "@/lib/db";
 import { ProjectModel } from "@/models/Project";
 import type { Project } from "@/types";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
 import { absoluteUrl, DEFAULT_OG_IMAGE } from "@/lib/site";
 import { getProjectCoverImage, getProjectGallery, mergeProjectContent } from "@/lib/project-media";
+import { ImageLightbox } from "@/components/ImageLightbox";
 
 interface Props { params: { slug: string } }
 
@@ -53,7 +53,7 @@ export default async function ProjectPage({ params }: Props) {
       <div className="relative">
         {primaryImage ? (
           <div className="relative h-[55vh] md:h-[70vh] w-full overflow-hidden">
-            <Image src={primaryImage} alt={project.title} fill className="object-cover" priority sizes="100vw" />
+            <ImageLightbox src={primaryImage} alt={project.title} priority sizes="100vw" />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
           </div>
         ) : (
@@ -93,13 +93,13 @@ export default async function ProjectPage({ params }: Props) {
                 <span className="font-mono text-xs text-muted tracking-widest uppercase mb-6 block">Gallery</span>
                 {allImages.length === 1 ? (
                   <div className="relative aspect-video overflow-hidden border border-border">
-                    <Image src={allImages[0]} alt={project.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 66vw" />
+                    <ImageLightbox src={allImages[0]} alt={project.title} sizes="(max-width: 768px) 100vw, 66vw" />
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 gap-2">
                     {allImages.map((img, i) => (
                       <div key={img} className={`relative overflow-hidden border border-border bg-surface ${i === 0 ? "col-span-2 aspect-video" : "aspect-square"}`}>
-                        <Image src={img} alt={`${project.title} ${i + 1}`} fill className="object-cover hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 50vw" />
+                        <ImageLightbox src={img} alt={`${project.title} ${i + 1}`} sizes="(max-width: 768px) 100vw, 50vw" />
                       </div>
                     ))}
                   </div>

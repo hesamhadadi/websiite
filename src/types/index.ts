@@ -47,3 +47,16 @@ export interface Testimonial {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface Certificate {
+  _id?: string;
+  title: string;
+  issuer: string;
+  issueDate?: string;
+  credentialUrl?: string;
+  imageUrl?: string;
+  featured: boolean;
+  skills: string[];
+  createdAt?: Date;
+  updatedAt?: Date;
+}

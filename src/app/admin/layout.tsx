@@ -4,13 +4,14 @@ import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, FolderKanban, FileText, MessageSquare, LogOut, Menu, X, Settings } from "lucide-react";
+import { LayoutDashboard, FolderKanban, FileText, MessageSquare, LogOut, Menu, X, Settings, BadgeCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/projects", label: "Projects", icon: FolderKanban },
   { href: "/admin/blog", label: "Blog", icon: FileText },
+  { href: "/admin/certificates", label: "Certificates", icon: BadgeCheck },
   { href: "/admin/messages", label: "Messages", icon: MessageSquare },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
