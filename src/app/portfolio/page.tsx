@@ -3,6 +3,7 @@ import dbConnect from "@/lib/db";
 import { ProjectModel } from "@/models/Project";
 import type { Project } from "@/types";
 import { PortfolioFilters } from "@/components/PortfolioFilters";
+import { mergeProjectContent } from "@/lib/project-media";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -20,7 +21,7 @@ async function getProjects(): Promise<Project[]> {
 }
 
 export default async function PortfolioPage() {
-  const projects = await getProjects();
+  const projects = (await getProjects()).map(mergeProjectContent);
 
   return (
     <div className="min-h-screen pt-28 px-6 pb-24">

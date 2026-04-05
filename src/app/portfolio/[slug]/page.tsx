@@ -7,7 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
 import { absoluteUrl, DEFAULT_OG_IMAGE } from "@/lib/site";
-import { getProjectCoverImage, getProjectGallery } from "@/lib/project-media";
+import { getProjectCoverImage, getProjectGallery, mergeProjectContent } from "@/lib/project-media";
 
 interface Props { params: { slug: string } }
 
@@ -21,7 +21,8 @@ async function getProject(id: string): Promise<Project | null> {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = await getProject(params.slug);
+  const rawProject = await getProject(params.slug);
+  const project = rawProject ? mergeProjectContent(rawProject) : null;
   if (!project) return { title: "Not Found" };
   return {
     title: project.title,
@@ -39,8 +40,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export const revalidate = 60;
 
 export default async function ProjectPage({ params }: Props) {
-  const project = await getProject(params.slug);
-  if (!project) notFound();
+  const rawProject = await getProject(params.slug);
+  if (!rawProject) notFound();
+  const project = mergeProjectContent(rawProject);
 
   const allImages = getProjectGallery(project);
   const primaryImage = getProjectCoverImage(project) || allImages[0];
