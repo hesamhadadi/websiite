@@ -93,12 +93,17 @@ export default async function Home() {
               </h1>
 
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-text-secondary md:text-xl">
-                Senior Frontend Developer focused on clean product interfaces, polished interactions,
-                and modern React and Next.js applications.
+                Senior Frontend Developer with 7+ years of experience building scalable web products
+                with React, Next.js, and TypeScript.
+              </p>
+
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-text-secondary">
+                Based in Turin, Italy. Currently pursuing an M.Sc. in Data Science at Politecnico di Torino,
+                with a focus on product-quality frontend engineering, performance, and interface polish.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
-                {["React", "Next.js", "TypeScript", "Framer Motion", "MongoDB", "SEO"].map((item) => (
+                {["React", "Next.js", "TypeScript", "Framer Motion", "MongoDB", "SEO", "PWA", "Design Systems"].map((item) => (
                   <span key={item} className="border border-border px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-text-secondary">
                     {item}
                   </span>
@@ -152,16 +157,16 @@ export default async function Home() {
           <div className="mb-12 grid gap-4 md:grid-cols-3">
             {[
               {
-                title: "Frontend Systems",
-                body: "Production-ready interfaces with strong motion, visual consistency, and scalable React architecture.",
+                title: "Product Frontend",
+                body: "Shipping modern interfaces that balance design precision, performance, and maintainable architecture.",
               },
               {
-                title: "Case Study Presentation",
-                body: "Projects framed with better screenshots, clearer product context, and stronger technical positioning.",
+                title: "Enterprise Mindset",
+                body: "Experience across scalable apps, dashboards, marketplace flows, and polished user-facing products.",
               },
               {
-                title: "Trust Layer",
-                body: "Certificates, testimonials, and cleaner project writeups to make the portfolio feel more complete.",
+                title: "Continuous Growth",
+                body: "Frontend depth backed by ongoing study in data science, product thinking, and web performance.",
               },
             ].map((item) => (
               <div key={item.title} className="border border-border bg-surface p-5">
