@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Download } from "lucide-react";
 import dbConnect from "@/lib/db";
+import { BlogPostModel } from "@/models/BlogPost";
 import { ProjectModel } from "@/models/Project";
 import type { Project } from "@/types";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
@@ -9,11 +10,27 @@ import { CertificatesSection } from "@/components/CertificatesSection";
 import { getSettingsMap, getSettingValue } from "@/lib/site";
 import { getProjectCoverImage, mergeProjectContent } from "@/lib/project-media";
 
+type WritingCard = {
+  title: string;
+  body: string;
+  href: string;
+};
+
 async function getProjects(): Promise<Project[]> {
   try {
     await dbConnect();
-    const projects = await ProjectModel.find({}).sort({ featured: -1, year: -1 }).limit(8).lean();
+    const projects = await ProjectModel.find({}).sort({ featured: -1, year: -1 }).limit(12).lean();
     return JSON.parse(JSON.stringify(projects)).map(mergeProjectContent);
+  } catch {
+    return [];
+  }
+}
+
+async function getPosts() {
+  try {
+    await dbConnect();
+    const posts = await BlogPostModel.find({ published: true }).sort({ createdAt: -1 }).limit(3).lean();
+    return JSON.parse(JSON.stringify(posts));
   } catch {
     return [];
   }
@@ -24,6 +41,30 @@ export const revalidate = 60;
 export default async function Home() {
   const settings = await getSettingsMap();
   const projects = await getProjects();
+  const posts = await getPosts();
+  const writingCards: WritingCard[] = posts.length
+    ? posts.map((post: { title: string; excerpt: string; slug: string }) => ({
+        title: post.title,
+        body: post.excerpt,
+        href: `/blog/${post.slug}`,
+      }))
+    : [
+        {
+          title: "How I present product work",
+          body: "Turning screenshots into case studies that explain the product clearly.",
+          href: "/blog",
+        },
+        {
+          title: "What makes frontend work feel polished",
+          body: "Small interface decisions that make a portfolio look more senior and finished.",
+          href: "/blog",
+        },
+        {
+          title: "Designing useful React products",
+          body: "Balancing component quality, speed, and visual clarity in real product UI.",
+          href: "/blog",
+        },
+      ];
 
   const avatarUrl = getSettingValue(settings, "avatar_url");
   const resumeUrl = getSettingValue(settings, "resume_url", "/contact");
@@ -108,6 +149,28 @@ export default async function Home() {
 
       <section className="border-t border-border px-6 py-20 md:py-24">
         <div className="mx-auto max-w-6xl">
+          <div className="mb-12 grid gap-4 md:grid-cols-3">
+            {[
+              {
+                title: "Frontend Systems",
+                body: "Production-ready interfaces with strong motion, visual consistency, and scalable React architecture.",
+              },
+              {
+                title: "Case Study Presentation",
+                body: "Projects framed with better screenshots, clearer product context, and stronger technical positioning.",
+              },
+              {
+                title: "Trust Layer",
+                body: "Certificates, testimonials, and cleaner project writeups to make the portfolio feel more complete.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="border border-border bg-surface p-5">
+                <h2 className="font-display text-2xl">{item.title}</h2>
+                <p className="mt-3 text-sm leading-relaxed text-text-secondary">{item.body}</p>
+              </div>
+            ))}
+          </div>
+
           <div className="mb-10 flex items-end justify-between gap-6">
             <div>
               <span className="font-mono text-xs uppercase tracking-widest text-accent">Selected Projects</span>
@@ -178,6 +241,33 @@ export default async function Home() {
       </section>
 
       <CertificatesSection />
+
+      <section className="border-t border-border px-6 py-20 md:py-24">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10 flex items-end justify-between gap-6">
+            <div>
+              <span className="font-mono text-xs uppercase tracking-widest text-accent">Writing</span>
+              <h2 className="mt-4 font-display text-4xl md:text-5xl">Notes & case studies</h2>
+            </div>
+            <Link href="/blog" className="hidden font-mono text-xs uppercase tracking-widest text-text-secondary transition-colors hover:text-accent md:inline-flex md:items-center md:gap-2">
+              Go To Blog <ArrowUpRight size={12} />
+            </Link>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {writingCards.map((item) => (
+              <Link key={item.title} href={item.href} className="group border border-border bg-surface p-6 transition-colors hover:border-accent/40">
+                <h3 className="font-display text-3xl transition-colors group-hover:text-accent">{item.title}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-text-secondary">{item.body}</p>
+                <span className="mt-6 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-accent">
+                  Read More <ArrowUpRight size={12} />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <TestimonialsSection />
 
       <section className="border-t border-border px-6 py-20 md:py-24">

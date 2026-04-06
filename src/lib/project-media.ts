@@ -8,9 +8,20 @@ type ProjectOverride = Partial<Project> & {
 const projectOverridesByHost: Record<string, ProjectOverride> = {
   "bazaarino.online": {
     coverImage: "/project-covers/bazaarino.webp",
+    description:
+      "Property discovery platform focused on buying and renting across European cities with a clear bilingual UX and trust-oriented landing flow.",
+    longDescription:
+      "Bazaarino is a real-estate style product experience built around clarity, trust, and quick onboarding. The interface presents geographic context, listing discovery, and product proof in a way that feels simple for first-time visitors while still supporting a richer marketplace direction. Visually, it leans on a clean grid, soft cards, and restrained branding to keep the experience approachable.",
+    tags: ["Next.js", "Marketplace UX", "RTL", "Landing Page", "Product Design"],
   },
   "gitiazizi.vercel.app": {
     coverImage: "/project-covers/giti-azizi.webp",
+    description:
+      "Editorial-style fashion portfolio with strong art direction, oversized imagery, and a premium presentation built for visual storytelling.",
+    longDescription:
+      "Giti Azizi is a brand-driven portfolio experience where layout, typography, and image treatment do most of the communication. The site is intentionally minimal in copy and heavy on visual hierarchy, creating a polished digital presence for a fashion-focused personal brand. It showcases direction in motion, spacing, and premium composition rather than dashboard complexity.",
+    githubUrl: "https://github.com/hesamhadadi/gitiazizi",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Portfolio", "Editorial UI"],
   },
   "strive-tau.vercel.app": {
     coverImage: "/project-covers/strive/dashboard.webp",
@@ -30,9 +41,20 @@ const projectOverridesByHost: Record<string, ProjectOverride> = {
   },
   "realtime-speech-to-text-lake.vercel.app": {
     coverImage: "/project-covers/realtime-speech.webp",
+    description:
+      "Browser-based real-time speech-to-text tool with multilingual transcription, export options, and a dark utility-first interface.",
+    longDescription:
+      "This speech-to-text application is built around speed and focus: start recording, transcribe in real time, and export the result without friction. It emphasizes a compact interface, low cognitive overhead, and useful utility features such as multi-language handling and fast output actions. The project shows product thinking in a tool context rather than only a marketing surface.",
+    githubUrl: "https://github.com/hesamhadadi/realtime-speech-to-text",
+    tags: ["TypeScript", "Speech-to-Text", "Web Speech API", "Utility App", "Export UX"],
   },
   "nava-call.vercel.app": {
     coverImage: "/project-covers/nava-call.webp",
+    description:
+      "Call-focused product concept with a lightweight interface designed around communication clarity and a simple conversion path.",
+    longDescription:
+      "Nava Call is a compact product interface built to make a communication-oriented service feel straightforward and modern. The project focuses on landing-page clarity, feature framing, and a direct user journey that supports faster understanding and action. It is less about dense feature surfaces and more about communicating the product cleanly.",
+    tags: ["Next.js", "Landing Page", "Product UI", "Conversion", "Responsive Design"],
   },
   "gym-zc2q.vercel.app": {
     coverImage: "/project-covers/gym/home.webp",
