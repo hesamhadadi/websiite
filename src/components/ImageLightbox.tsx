@@ -49,11 +49,13 @@ export function ImageLightbox({
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="absolute right-6 top-6 z-10 inline-flex h-11 w-11 items-center justify-center border border-border bg-surface text-text-secondary transition-colors hover:text-text-primary"
+            className="absolute right-4 top-4 z-[90] inline-flex items-center gap-2 border border-border bg-surface/95 px-4 py-3 font-mono text-[11px] uppercase tracking-widest text-text-secondary shadow-lg transition-colors hover:text-text-primary md:right-6 md:top-6"
+            aria-label="Close image preview"
           >
             <X size={18} />
+            <span>Close</span>
           </button>
-          <div className="relative h-full w-full p-6 md:p-12" onClick={(event) => event.stopPropagation()}>
+          <div className="relative z-[85] h-full w-full p-6 pt-20 md:p-12 md:pt-24" onClick={(event) => event.stopPropagation()}>
             <Image src={src} alt={alt} fill className="object-contain" sizes="100vw" priority />
           </div>
         </div>
