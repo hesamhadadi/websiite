@@ -8,6 +8,7 @@ const BlogPostSchema = new Schema<BlogPost>(
     slug: { type: String, required: true, unique: true },
     excerpt: { type: String, required: true },
     content: { type: String, required: true },
+    coverImage: { type: String },
     tags: [{ type: String }],
     published: { type: Boolean, default: false },
     readTime: { type: Number },

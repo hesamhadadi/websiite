@@ -19,6 +19,7 @@ export interface BlogPost {
   slug: string;
   excerpt: string;
   content: string;
+  coverImage?: string;
   tags: string[];
   published: boolean;
   readTime?: number;

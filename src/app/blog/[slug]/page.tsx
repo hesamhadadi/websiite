@@ -8,6 +8,8 @@ import type { BlogPost } from "@/types";
 import { formatDate } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github-dark.css";
 import { absoluteUrl, DEFAULT_OG_IMAGE } from "@/lib/site";
 import { BlogViewTracker } from "@/components/BlogViewTracker";
 
@@ -36,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt,
       type: "article",
       url: absoluteUrl(`/blog/${post.slug}`),
-      images: [absoluteUrl(DEFAULT_OG_IMAGE)],
+      images: [post.coverImage || absoluteUrl(DEFAULT_OG_IMAGE)],
     },
   };
 }
@@ -55,6 +57,17 @@ export default async function BlogPostPage({ params }: Props) {
         >
           <ArrowLeft size={12} /> Back to Blog
         </Link>
+
+        {post.coverImage && (
+          <div className="mb-10 overflow-hidden border border-border">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={post.coverImage}
+              alt={post.title}
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        )}
 
         <header className="mb-12">
           <div className="flex items-center gap-4 mb-6">
@@ -111,7 +124,10 @@ export default async function BlogPostPage({ params }: Props) {
             prose-blockquote:border-l-accent prose-blockquote:border-l-2 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-text-secondary
             prose-strong:text-text-primary prose-strong:font-medium
             prose-hr:border-border">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[[rehypeHighlight, { detect: true, ignoreMissing: true }]]}
+            >
               {post.content}
             </ReactMarkdown>
           </div>
