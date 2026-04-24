@@ -17,6 +17,10 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const auth = req.headers.get("x-api-key");
+  if (!process.env.BLOG_API_KEY || auth !== process.env.BLOG_API_KEY) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   try {
     await dbConnect();
     const data = await req.json();
