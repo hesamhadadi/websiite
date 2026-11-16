@@ -102,3 +102,39 @@ body::before {
     box-shadow: 0 0 40px rgba(200, 240, 76, 0.15);
   }
 }
+
+/* Portfolio editorial layout */
+.folio { max-width: 80rem; margin: auto; padding: 0 clamp(1.25rem,5vw,5rem); }
+.folio-hero { display: grid; grid-template-columns: 1.12fr 1fr; align-items: center; gap: clamp(2rem,5vw,6rem); padding: clamp(7rem,12vw,11rem) 0 3rem; }
+.folio-kicker,.folio-card small,.folio-caption span,.folio-status { font: .75rem/1.6 var(--font-mono); color: var(--text-secondary); }
+.folio-kicker span { color: var(--accent); margin: 0 .4rem; }
+.folio h1 { margin: 1.2rem 0; font: 500 clamp(3.2rem,7vw,7.1rem)/.95 var(--font-sans); letter-spacing: -.07em; }
+.folio h1 em { font-family: var(--font-display); font-weight: 400; letter-spacing: -.055em; }
+.folio-bio,.folio-card p,.folio-article p { max-width: 48ch; color: var(--text-secondary); line-height: 1.65; }
+.folio-actions,.folio-section header a,.folio-status,.folio-actions a { display: flex; align-items: center; gap: .65rem; }
+.folio-actions { margin-top: 1.8rem; gap: 1.5rem; }
+.folio-primary { background: var(--text-primary); color: var(--background); padding: .8rem 1.2rem; border-radius: 2rem; }
+.folio-art,.folio-cover { position: relative; display: block; overflow: hidden; border-radius: 1rem; background: #e0ded5; }
+.folio-art { aspect-ratio: 1.22; background: linear-gradient(145deg,#e2dccb,#c4bab0); }
+.folio-art img { padding: 8%; }
+.folio-caption,.folio-article { display: flex; align-items: center; gap: 1rem; padding: 1rem 0; }
+.folio-caption strong { margin-left: auto; }
+.folio-status { border-top: 1px solid var(--border); padding: 1rem 0; }
+.status-dot { width: .45rem; height: .45rem; border-radius: 100%; }
+.folio-section { padding: 4rem 0; scroll-margin-top: 4rem; }
+.folio-section header,.folio-card h3 { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.folio-section header { border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem; }
+.folio-section h2 { font: 400 clamp(2.5rem,5vw,4.8rem)/1.1 var(--font-display); letter-spacing: -.045em; }
+.folio-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 3rem 2rem; }
+.folio-cover { aspect-ratio: 16/10; margin-bottom: 1rem; background: var(--surface); }
+.folio-card h3,.folio-article h3 { font-size: clamp(1.35rem,2.6vw,2rem); letter-spacing: -.04em; margin: .3rem 0; }
+.folio a:hover h3,.folio-section header a:hover,.folio-caption:hover { color: var(--accent); }
+.folio-article { border-bottom: 1px solid var(--border); justify-content: space-between; }
+@media (max-width: 849px) {
+  .folio-hero,.folio-grid { grid-template-columns: 1fr; }
+  .folio-hero { padding-top: 7rem; }
+  .folio-art { aspect-ratio: 16/10; }
+  .folio-section { padding: 2.75rem 0; }
+  .folio-article { flex-wrap: wrap; }
+}
+.folio-type-cover { position: absolute; inset: 12%; display: grid; align-items: center; color: #242019; font: italic clamp(2.5rem,5vw,5rem)/1 var(--font-display); }

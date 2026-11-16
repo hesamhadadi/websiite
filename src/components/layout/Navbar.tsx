@@ -44,9 +44,7 @@ export function Navbar() {
           href="/"
           className="font-mono text-sm tracking-widest text-text-secondary hover:text-accent transition-colors duration-200"
         >
-          <span className="text-accent">{"<"}</span>
-          YN
-          <span className="text-accent">{" />"}</span>
+          Hesam Haddadi Nik
         </Link>
 
         {/* Desktop links */}

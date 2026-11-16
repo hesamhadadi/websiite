@@ -3,14 +3,14 @@ import { Github, Linkedin, Mail } from "lucide-react";
 import { NewsletterForm } from "@/components/NewsletterForm";
 
 const socials = [
-  { href: "https://github.com/hesamhaddadinik", icon: Github, label: "GitHub" },
+  { href: "https://github.com/hesamhadadi", icon: Github, label: "GitHub" },
   { href: "https://www.linkedin.com/in/hesam-hadadi-557574194/", icon: Linkedin, label: "LinkedIn" },
   { href: "mailto:hesamhaddadinik@gmail.com", icon: Mail, label: "Email" },
 ];
 
 export function Footer() {
   return (
-    <footer className="border-t border-border mt-32">
+    <footer className="border-t border-border mt-12">
       <div className="mx-auto max-w-5xl px-6 py-12">
         <div className="grid gap-10 md:grid-cols-[1.2fr_0.8fr] md:items-start">
           <div>
