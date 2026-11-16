@@ -61,7 +61,7 @@ export default async function Home() {
           <p className="folio-kicker">Senior frontend engineer <span aria-hidden="true">/</span> Turin, Italy</p>
           <h1>Hesam<br/><em>Haddadi Nik.</em></h1>
           <p className="folio-bio">I build web products with React, Next.js and TypeScript. Over seven years of frontend engineering, now paired with graduate studies in data science at Politecnico di Torino.</p>
-          <div className="folio-actions"><a className="folio-primary" href="#work">Explore my work <ArrowDown size={16}/></a><a href={resumeUrl}>Résumé <ArrowUpRight size={16}/></a></div>
+          <div className="folio-actions"><a className="folio-primary" href="#work">Explore my work <ArrowDown size={16}/></a><a href={resumeUrl}>{resumeUrl === "/contact" ? "Contact me" : "Résumé"} <ArrowUpRight size={16}/></a></div>
         </div>
         <aside className="folio-feature">
           <Link href={work[0].href} className="folio-art">
